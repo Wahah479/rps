@@ -1,6 +1,5 @@
 function getComputerChoice() {
     let ranNum = Math.floor(Math.random() * 3);
-    console.log(ranNum);
     if (ranNum == 0) {
         return "Rock";
     }
@@ -46,9 +45,12 @@ function playRound(playerSelection, computerSelection) {
 }
 
 function game() {
+    let choice;
     for (let i = 0; i < 5; i++) {
-        
+        choice = prompt("Make your choice: ");
+        console.log(typeof choice);
+        console.log(playRound(choice, getComputerChoice()));
     }
 }
 
-console.log(playRound("Scissors", getComputerChoice()));
+game();

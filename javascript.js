@@ -11,46 +11,70 @@ function getComputerChoice() {
     }
 }
 
-function playRound(playerSelection, computerSelection) {
-    let player = playerSelection.toLowerCase();
+function playRound(e) {
+    let player = e.target.id;
+    computerSelection = getComputerChoice();
     let com = computerSelection.toLowerCase();
     if (player === com){
-        return `You Tie! Both chose ${computerSelection}`;
+        results.textContent = `You Tie! Both chose ${computerSelection}`;
     }
     //No Tie  | User chose Rock
     else if (player === "rock") {
         if (com === "paper") {
-            return "You Lose! Paper beats Rock";
+            results.textContent = "You Lose! Paper beats Rock";
+             comPoints++;
         }
         else {
-            return "You Win! Rock beats Scissors";
+            results.textContent = "You Win! Rock beats Scissors";
+            playerPoints++;
         }
     }
     else if (player === "paper") {
         if (com === "rock") {
-            return "You Win! Paper beats Rock";
+            results.textContent = "You Win! Paper beats Rock";
+            playerPoints++;
         }
         else {
-            return "You Lose! Scissors beat Paper";
+            results.textContent = "You Lose! Scissors beat Paper";
+            comPoints++;
         }
     }
     else {
         if (com === "rock") {
-            return "You Lose! Rock beats Scissors";
+            results.textContent = "You Lose! Rock beats Scissors";
+            comPoints++;
         }
         else {
-            return "You Win! Scissors beat Paper";
+            results.textContent = "You Win! Scissors beat Paper";
+            playerPoints++;
         }
     }
-}
 
-function game() {
-    let choice;
-    for (let i = 0; i < 5; i++) {
-        choice = prompt("Make your choice: ");
-        console.log(typeof choice);
-        console.log(playRound(choice, getComputerChoice()));
+    
+    if (comPoints === 5){
+        results.textContent = `Computer wins ${comPoints} - ${playerPoints}. Select a button to restart the game.`;
+        comPoints = 0;
+        playerPoints = 0;
     }
+    else if (playerPoints === 5) {
+        results.textContent = `You win ${playerPoints} - ${comPoints}. Select a button to restart the game.`;
+        comPoints = 0;
+        playerPoints = 0;
+    }
+    else {
+        results.textContent += `. Player ${playerPoints} - ${comPoints} Computer`;
+    }
+
 }
 
-game();
+function test(e) {
+    console.log(typeof e.target.id);
+}
+
+let playerPoints = 0;
+let comPoints = 0;
+
+let a;
+const results = document.querySelector('.results');
+const buttons = document.querySelectorAll('button');
+a = buttons.forEach(button => button.addEventListener('click', playRound));
